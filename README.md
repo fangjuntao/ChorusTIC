@@ -1,6 +1,8 @@
-# ChorusTIC 
+# ChorusTIC
 
-This directory contains the  code for ChorusTIC. It keeps the model, data loading, and inference modules required to run UCR/UEA evaluation. 
+This repository contains the code for ChorusTIC. It includes the model, data loading, and inference modules required to run UCR/UEA evaluation.
+
+Pretrained checkpoints are available on Hugging Face: [JTF2000/ChorusTIC](https://huggingface.co/JTF2000/ChorusTIC).
 
 ## Module Naming
 
@@ -33,6 +35,23 @@ Use `ticfs_env.yml` to create the recommended environment. The inference path re
 
 UCR/UEA archives are read through `chorustic.evaluation.data_reader.DataReader`. Set `--ucr_path` and `--uea_path` to the corresponding dataset root directories.
 
+## Model Checkpoints
+
+Download the released checkpoint and configuration from Hugging Face:
+
+```bash
+pip install -U huggingface_hub
+hf download JTF2000/ChorusTIC --local-dir Checkpoints_ChorusTIC
+```
+
+The expected local layout is:
+
+```text
+Checkpoints_ChorusTIC/
+├── ChorusTIC.ckpt
+└── model_hparams_latest.json
+```
+
 ## Inference Command
 
 ```bash
@@ -41,8 +60,8 @@ cd <chorustic_repo_root>
 python -u scripts/evaluate_chorustic_ucr_uea.py \
   --ucr_path <ucr_data_root> \
   --uea_path <uea_data_root> \
-  --rssc_ckpt <checkpoint_dir>/step-6000.ckpt \
-  --rssc_hparams_json <checkpoint_dir>/model_hparams_latest.json \
+  --rssc_ckpt Checkpoints_ChorusTIC/ChorusTIC.ckpt \
+  --rssc_hparams_json Checkpoints_ChorusTIC/model_hparams_latest.json \
   --device cuda:0 \
   --suite both \
   --mode classifier_v2 \
@@ -53,8 +72,8 @@ python -u scripts/evaluate_chorustic_ucr_uea.py \
   --v2_batch_size 32 \
   --rssc_eval_ensembles 4 \
   --task_level_chorus_ensemble_batch_size 512 \
-  --output_csv <output_dir>/step-XXXX_results.csv \
-  --output_json <output_dir>/step-XXXX_results.json \
+  --output_csv <output_dir>/chorustic_results.csv \
+  --output_json <output_dir>/chorustic_results.json \
   --signal_encoder_batch_size 1024 \
   --oom_min_v2_batch_size 1 \
   --oom_min_signal_encoder_batch_size 64 \

@@ -87,3 +87,7 @@ python -u scripts/evaluate_chorustic_ucr_uea.py \
 - `--output_csv`: Writes one row per dataset, including accuracy, sample counts, class count, and the effective batch sizes used after any OOM retry.
 - `--output_json`: Writes the summary and full per-dataset results.
 - `<output_csv>.cmd.txt`: Records the exact command line next to the CSV for reproducibility.
+
+## Benchmark Results
+
+ChorusTIC is evaluated in the [TSC-FM time series classification benchmark](https://tsc-fm.dmirlab.com/). See its [model configurations and benchmark results](https://tsc-fm.dmirlab.com/methods/chorustic), compare it on the [time series classification leaderboard](https://tsc-fm.dmirlab.com/leaderboard), and consult the [Standard and few-shot evaluation protocol](https://tsc-fm.dmirlab.com/evaluation).
